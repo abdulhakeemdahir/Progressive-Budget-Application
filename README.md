@@ -44,7 +44,7 @@ This application is covered under the MIT License
 Below is the link to the live site:
 https://github.com/abdulhakeemdahir/Progressive-Budget-Application
 
-![image](public/assets/images/hw18.png)
+![image](public/images/hw18.png)
 
 ## Questions
 
