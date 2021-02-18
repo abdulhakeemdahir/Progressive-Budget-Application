@@ -19,3 +19,8 @@ request.onsuccess = function (event) {
 		checkDatabase();
 	}
 };
+
+// Respond with error
+request.onerror = function (event) {
+	console.log("Woops! " + event.target.errorCode);
+};
