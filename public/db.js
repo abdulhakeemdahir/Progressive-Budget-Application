@@ -27,11 +27,11 @@ request.onerror = function (event) {
 
 // create transaction with db, access db and add to the db
 function saveRecord(record) {
-	const transaction = db.transaction(["pending"], "readwrite");
-	const pendingStore = transaction.objectStore("pending");
+	const transaction = db.transaction(["offline"], "readwrite");
+	const offlineStore = transaction.objectStore("offline");
 	console.log("Let's see");
 	console.log(record);
-	pendingStore.add({
+	offlineStore.add({
 		name: record.name,
 		value: record.value,
 		date: record.date,
