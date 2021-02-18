@@ -44,5 +44,26 @@ function checkDatabase() {
 
 	const getAll = offlineStore.getAll();
 
+    getAll.onsuccess = function () {
+			if (getAll.result.length > 0) {
+				fetch("/api/transaction/bulk", {
+					method: "POST",
+					body: JSON.stringify(getAll.result),
+					headers: {
+						Accept: "application/json, text/plain, */*",
+						"Content-Type": "application/json",
+					},
+				})
+					.then(response => response.json())
+					.then(() => {
+						// if successful, open a transaction on your offline db
+						// access your offline object store
+						// clear all items in your store
+						const transaction = db.transaction(["offline"], "readwrite");
+						const offlineStore = transaction.objectStore("offline");
+						offlineStore.clear();
+					});
+			}
+		};
 	
 }
