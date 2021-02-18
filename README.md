@@ -29,7 +29,7 @@ Please follow the installation process below:
 ```
 
 Respository:
-https://github.com/abdulhakeemdahir/Workout-Tracker-Application
+https://github.com/abdulhakeemdahir/Progressive-Budget-Application 
 
 ## Usage
 
