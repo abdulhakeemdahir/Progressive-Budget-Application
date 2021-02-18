@@ -10,3 +10,12 @@ request.onupgradeneeded = function (event) {
 			autoIncrement: true,
 		});
 }
+
+//Check to see if application is online before checking database
+request.onsuccess = function (event) {
+	db = event.target.result;
+
+	if (navigator.onLine) {
+		checkDatabase();
+	}
+};
