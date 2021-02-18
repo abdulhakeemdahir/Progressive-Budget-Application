@@ -37,3 +37,12 @@ function saveRecord(record) {
 		date: record.date,
 	});
 }
+// open transaction to db, access db, get all records from db into a variable
+function checkDatabase() {
+	const transaction = db.transaction(["offline"], "readwrite");
+	const offlineStore = transaction.objectStore("offline");
+
+	const getAll = offlineStore.getAll();
+
+	
+}
