@@ -4,12 +4,12 @@ let db;
 const request = indexedDB.open("budget", 1);
 
 request.onupgradeneeded = function (event) {
-    //create an object store called "storeOffline"
-    const db = event.target.result;
-		const offlineStore = db.createObjectStore("offline", {
-			autoIncrement: true,
-		});
-}
+	//create an object store called "storeOffline"
+	const db = event.target.result;
+	const offlineStore = db.createObjectStore("offline", {
+		autoIncrement: true,
+	});
+};
 
 //Check to see if application is online before checking database
 request.onsuccess = function (event) {
@@ -29,8 +29,6 @@ request.onerror = function (event) {
 function saveRecord(record) {
 	const transaction = db.transaction(["offline"], "readwrite");
 	const offlineStore = transaction.objectStore("offline");
-	console.log("Let's see");
-	console.log(record);
 	offlineStore.add({
 		name: record.name,
 		value: record.value,
@@ -44,26 +42,25 @@ function checkDatabase() {
 
 	const getAll = offlineStore.getAll();
 
-    getAll.onsuccess = function () {
-			if (getAll.result.length > 0) {
-				fetch("/api/transaction/bulk", {
-					method: "POST",
-					body: JSON.stringify(getAll.result),
-					headers: {
-						Accept: "application/json, text/plain, */*",
-						"Content-Type": "application/json",
-					},
-				})
-					.then(response => response.json())
-					.then(() => {
-						// if successful, open a transaction on your offline db
-						// access your offline object store
-						// clear all items in your store
-						const transaction = db.transaction(["offline"], "readwrite");
-						const offlineStore = transaction.objectStore("offline");
-						offlineStore.clear();
-					});
-			}
-		};
-	
+	getAll.onsuccess = function () {
+		if (getAll.result.length > 0) {
+			fetch("/api/transaction/bulk", {
+				method: "POST",
+				body: JSON.stringify(getAll.result),
+				headers: {
+					Accept: "application/json, text/plain, */*",
+					"Content-Type": "application/json",
+				},
+			})
+				.then(response => response.json())
+				.then(() => {
+					// if successful, open a transaction on your offline db
+					// access your offline object store
+					// clear all items in your store
+					const transaction = db.transaction(["offline"], "readwrite");
+					const offlineStore = transaction.objectStore("offline");
+					offlineStore.clear();
+				});
+		}
+	};
 }
